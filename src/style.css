@@ -92,11 +92,13 @@ main {
   font-size: 88px;
   font-weight: 400;
   line-height: 88px;
+  color: #000000;
 }
 
 .weather-app-unit {
   margin-top: 6px;
   font-size: 28px;
+  color: #000000;
 }
 
 .weather-forecast {
@@ -122,11 +124,20 @@ main {
 
 .weather-forecast-temperatures {
   text-align: center;
-  color: #efbec9;
   margin-top: 10px;
   margin-bottom: 30px;
   display: flex;
   justify-content: center;
+}
+
+.high-temperature {
+  color: #efbec9;
+  font-weight: bold;
+}
+
+.low-temperature {
+  color: #b3c2d1;
+  font-weight: normal;
 }
 
 .weather-forecast-temperature {
