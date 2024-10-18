@@ -15,7 +15,16 @@ function refreshWeather(response) {
   humidityElement.innerHTML = `${response.data.temperature.humidity}%`;
   windSpeedElement.innerHTML = `${response.data.wind.speed}km/h`;
   temperatureElement.innerHTML = Math.round(temperature);
-  iconElement.innerHTML = `<img src="${response.data.condition.icon_url}" class="weather-app-icon" />`;
+
+  let iconName = response.data.condition.description.toLowerCase();
+
+  // Determine if it's evening or night
+  let hours = date.getHours();
+  if (hours >= 18) {
+    iconName += "-evening"; // Append "-evening" for evening icons
+  }
+
+  iconElement.innerHTML = `<img src="src/assets/icons/${iconName}.png" class="weather-app-icon" />`;
 
   getForecast(response.data.city);
 }
@@ -72,21 +81,22 @@ function displayForecast(response) {
 
   response.data.daily.forEach(function (day, index) {
     if (index < 5) {
+      let forecastIconName = day.condition.description.toLowerCase();
+
       forecastHtml += `
-            <div class="weather-forecast-day">
-                <div class="weather-forecast-date">${formatDay(day.time)}</div>
-                <img src="${
-                  day.condition.icon_url
-                }" class="weather-forecast-icon"/>
-                <div class="weather-forecast-temperatures">
+    <div class="weather-forecast-day">
+            <div class="weather-forecast-date">${formatDay(day.time)}</div>
+            <img src="src/assets/icons/${forecastIconName}.png" class="weather-forecast-icon"/>
+ <div class="weather-forecast-temperatures">
                     <div class="weather-forecast-temperature high-temperature">
                         <strong>${Math.round(day.temperature.maximum)}°</strong>
                     </div>
                     <div class="weather-forecast-temperature low-temperature">
                         ${Math.round(day.temperature.minimum)}°
                     </div>
-                </div>
-            </div>`;
+            </div>
+          </div>
+`;
     }
   });
 
